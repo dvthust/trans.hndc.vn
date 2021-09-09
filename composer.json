@@ -1,0 +1,16 @@
+{
+    "name": "educo/auto-translate",
+    "description": "Help to translate text between english and vietnamese !",
+    "type": "project",
+    "authors": [
+        {
+            "name": "TuanDv",
+            "email": "tuan.dangvan@educo.edu.vn"
+        }
+    ],
+    "require": {
+        "stichoza/google-translate-php": "^4.1",
+        "monolog/monolog": "^2.3",
+        "ext-json": "*"
+    }
+}
