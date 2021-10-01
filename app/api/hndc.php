@@ -13,7 +13,7 @@ $output     = "[%datetime%] %channel%.%level_name%: %message%\n";
 $formatter  = new LineFormatter($output, $dateFormat);
 
 $logger = new Logger('translate');
-$streamHandler = new StreamHandler(__DIR__ . '/../logs/hndc-' . date('Y-m-d') . '.log',  Logger::DEBUG);
+$streamHandler = new StreamHandler(__DIR__ . '/../../logs/hndc-' . date('Y-m-d') . '.log',  Logger::DEBUG);
 
 $streamHandler->setFormatter($formatter);
 $logger->pushHandler($streamHandler);
