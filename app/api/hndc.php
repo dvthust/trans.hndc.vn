@@ -27,12 +27,15 @@ $urls = array(
 
 //Keyword need to translate
 $content = '';
+$target  = '';
 $method  = $_SERVER['REQUEST_METHOD'];
 
 if ($method == 'GET' && isset($_GET['content'])){
     $content = $_GET['content'];
+    $target = $_GET['target'];
 } elseif ($method == 'POST' && isset($_POST['content'])) {
     $content = $_POST['content'];
+    $target  = $_POST['target'];
 }
 
 // Translates to 'en' from auto-detected language by default
@@ -52,16 +55,22 @@ try {
     $tr->setOptions(['proxy' => 'socks5://localhost:9050']);
 
     if ($content) {
-        $tr->translate($content);
+        if (!$target) {
+            $tr->translate($content);
 
-        $langDetect= $tr->getLastDetectedSource();
-        switch ($langDetect) {
-            case 'vi':
-                $tr->setTarget('zh');
-                break;
-            default:
-                $tr->setTarget('vi');
-                break;
+            $langDetect= $tr->getLastDetectedSource();
+            switch ($langDetect) {
+                case 'vi':
+                    $tr->setTarget('zh');
+                    break;
+                default:
+                    $tr->setTarget('vi');
+                    break;
+            }
+        } else if(in_array($target, ['vi', 'zh', 'en'])) {
+            $tr->setTarget($target);
+        } else {
+            $tr->setTarget('vi');
         }
 
         $text = $tr->translate($content);
