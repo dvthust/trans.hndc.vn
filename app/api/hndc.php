@@ -26,17 +26,8 @@ $urls = array(
 );
 
 //Keyword need to translate
-$content = '';
-$target  = '';
-$method  = $_SERVER['REQUEST_METHOD'];
-
-if ($method == 'GET' && isset($_GET['content'])){
-    $content = $_GET['content'];
-    $target = $_GET['target'];
-} elseif ($method == 'POST' && isset($_POST['content'])) {
-    $content = $_POST['content'];
-    $target  = $_POST['target'];
-}
+$content = $_GET['content'] ?? $_POST['content'] ?? '';
+$target  = $_GET['target'] ?? $_POST['target'] ?? '';
 
 // Translates to 'en' from auto-detected language by default
 $tr = new GoogleTranslate();
@@ -52,7 +43,7 @@ try {
     $logger->info('Content: ' . $content);
 
     //Using tor proxy
-    $tr->setOptions(['proxy' => 'socks5://localhost:9050']);
+//    $tr->setOptions(['proxy' => 'socks5://localhost:9050']);
 
     if ($content) {
         if (!$target) {
